@@ -3,6 +3,7 @@ import entities.Order;
 import entities.Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     static void main(String[] args) {
@@ -42,6 +43,25 @@ public class Main {
                 for (Product p : ordine.getProducts()) {
                     System.out.println("  -" + p.getName() + " (" + p.getCategory() + " ) €" + p.getPrice());
                 }
+
+                System.out.println("\n");
+            }
+        }
+
+        System.out.println(" === Esercizio 3 ===\n ");
+        System.out.println("Lista Prodotti con categoria BOYS e applicato 10% ogni prodotto:\n");
+
+        List<Product> scontati = esercizio3();
+
+        if (scontati.isEmpty()) {
+            System.out.println("Nessun prodotto nella categoria Boys trovato.");
+        } else {
+            System.out.println("Trovati " + scontati.size() + " prodotti: \n");
+
+            for (Product p : scontati) {
+                System.out.println(" - " + p.getName());
+                System.out.println("   prezzo scontato: " + p.getPrice() + " €");
+                System.out.println();
             }
         }
 
@@ -61,6 +81,14 @@ public class Main {
                 .filter(ordine -> ordine.getProducts().stream()
                         .anyMatch(p -> "Baby".equals(p.getCategory())))
                 .toList();
+    }
+
+    public static List<Product> esercizio3() {
+        return SampleData.PRODUCTS.stream()
+                .filter(p -> "Boys".equals(p.getCategory()))
+                .map(p -> new Product(p.getId(), p.getName(), p.getCategory(), p.getPrice() * 0.9))
+                .collect(Collectors.toList());
+
     }
 
 }
