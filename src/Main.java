@@ -88,8 +88,7 @@ public class Main {
 
     public static List<Product> esercizio1() {
         return SampleData.PRODUCTS.stream()
-                .filter(p -> "Books".equals(p.getCategory()))
-                .filter(p -> p.getPrice() > 100)
+                .filter(p -> "Books".equals(p.getCategory()) && (p.getPrice() > 100))
                 .toList();
 
     }
@@ -114,9 +113,7 @@ public class Main {
         LocalDate fine = LocalDate.of(2026, 4, 1);
 
         return SampleData.ORDERS.stream()
-                .filter(ordine -> ordine.getCustomer().getTier() == 2)
-                .filter(ordine -> !ordine.getOrderDate().isBefore(inizio))
-                .filter(ordine -> !ordine.getOrderDate().isAfter(fine))
+                .filter(ordine -> ordine.getCustomer().getTier() == 2 && !ordine.getOrderDate().isBefore(inizio) && !ordine.getOrderDate().isAfter(fine))
                 .flatMap(ordine -> ordine.getProducts().stream())
                 .collect(Collectors.toList());
     }

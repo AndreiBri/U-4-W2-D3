@@ -10,9 +10,9 @@ import java.util.List;
 
 public class SampleData {
 
-    public static final List<Product> PRODUCTS = new ArrayList<>();
-    public static final List<Customer> CUSTOMERS = new ArrayList<>();
-    public static final List<Order> ORDERS = new ArrayList<>();
+    public static List<Product> PRODUCTS = new ArrayList<>();
+    public static List<Customer> CUSTOMERS = new ArrayList<>();
+    public static List<Order> ORDERS = new ArrayList<>();
 
     static {
 
