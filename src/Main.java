@@ -2,6 +2,7 @@ import data.SampleData;
 import entities.Order;
 import entities.Product;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,8 +64,25 @@ public class Main {
                 System.out.println("   prezzo scontato: " + p.getPrice() + " €");
                 System.out.println();
             }
+
+            System.out.println("\n");
         }
 
+
+        System.out.println(" === Esercizio 4 ===\n ");
+        System.out.println("Lista Prodotti ordinati da Clienti Tier 2 tra le 2 date fornite:\n");
+
+        List<Product> prodotti = esercizio4();
+
+        if (prodotti.isEmpty()) {
+            System.out.println("Nessun prodotto trovato in quel periodo per tier 2");
+        } else {
+            System.out.println("Trovati " + prodotti.size() + " prodotti:\n");
+
+            for (Product p : prodotti) {
+                System.out.println(" - " + p.getName() + "  € " + p.getPrice());
+            }
+        }
 
     }
 
@@ -89,6 +107,18 @@ public class Main {
                 .map(p -> new Product(p.getId(), p.getName(), p.getCategory(), p.getPrice() * 0.9))
                 .collect(Collectors.toList());
 
+    }
+
+    public static List<Product> esercizio4() {
+        LocalDate inizio = LocalDate.of(2026, 2, 1);
+        LocalDate fine = LocalDate.of(2026, 4, 1);
+
+        return SampleData.ORDERS.stream()
+                .filter(ordine -> ordine.getCustomer().getTier() == 2)
+                .filter(ordine -> !ordine.getOrderDate().isBefore(inizio))
+                .filter(ordine -> !ordine.getOrderDate().isAfter(fine))
+                .flatMap(ordine -> ordine.getProducts().stream())
+                .collect(Collectors.toList());
     }
 
 }
