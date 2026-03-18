@@ -1,13 +1,32 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import data.SampleData;
+import entities.Product;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+import java.util.List;
+
+public class Main {
+    static void main(String[] args) {
+        System.out.println(" === Esercizio 1 ===\n ");
+
+        List<Product> libriCostosi = esercizio1();
+
+        if (libriCostosi.isEmpty()) {
+            System.out.println("Nessun libro trovato con prezzo > 100 €");
+        } else {
+            System.out.println("Trovati " + libriCostosi.size() + " libri costosi:");
+
+            for (Product p : libriCostosi) {
+                System.out.println(" - " + p.getName() + "-> € " + p.getPrice());
+            }
+        }
+        System.out.println();
     }
+
+    public static List<Product> esercizio1() {
+        return SampleData.PRODUCTS.stream()
+                .filter(p -> "Books".equals(p.getCategory()))
+                .filter(p -> p.getPrice() > 100)
+                .toList();
+
+    }
+
 }
